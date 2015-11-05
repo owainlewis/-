@@ -1,5 +1,12 @@
 package io.forward.polyfunctors
 
+case class Bi[A,B](a: A, b: B)
+
+object Bi {
+  
+  def flip[A,B](bi: Bi[A,B]): Bi[B,A] = Bi(bi.b, bi.a)
+}
+
 trait Bifunctor[F[+_, +_]] {
   /**
    * Bimap applies a function to both the left and right sides of a bi structure
