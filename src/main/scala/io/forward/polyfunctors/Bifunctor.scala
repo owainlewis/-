@@ -3,7 +3,6 @@ package io.forward.polyfunctors
 case class Bi[A,B](a: A, b: B)
 
 object Bi {
-  
   def flip[A,B](bi: Bi[A,B]): Bi[B,A] = Bi(bi.b, bi.a)
 }
 
@@ -33,5 +32,10 @@ object Bifunctor {
         case Left(a)  => Left(f(a))
         case Right(b) => Right(g(b))
       }
+  }
+
+  implicit def BiBifunctor: Bifunctor[Bi] = new Bifunctor[Bi] {
+    def bimap[A,B,C,D](domain: Bi[A,B], f: A =>C, g: B => D)=
+      Bi(f(domain.a), g(domain.b))
   }
 }
