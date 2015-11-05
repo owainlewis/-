@@ -1,8 +1,15 @@
 package io.forward.polyfunctors
 
 trait Bifunctor[F[+_, +_]] {
+  /**
+   * Bimap applies a function to both the left and right sides of a bi structure
+   */
   def bimap[A, B, C, D](domain: F[A, B], f: A => C, g: B => D): F[C, D]
 
+  /**
+   * Apply a function f: A => C over the left side only leaving the right side unchanged
+   *
+   */
   def <:-[A,B,C](domain: F[A,B], f: A => C) = bimap(domain, f, identity[B])
 }
 
