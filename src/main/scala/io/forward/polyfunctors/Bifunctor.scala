@@ -1,12 +1,12 @@
 package io.forward.polyfunctors
 
-case class Bi[A,B](a: A, b: B)
+case class Bi[A, B](a: A, b: B)
 
 object Bi {
-  def flip[A,B](bi: Bi[A,B]): Bi[B,A] = Bi(bi.b, bi.a)
+  def flip[A, B](bi: Bi[A, B]): Bi[B, A] = Bi(bi.b, bi.a)
 }
 
-trait Bifunctor[F[+_, +_]] {
+trait Bifunctor[F[+ _, + _]] {
   /**
    * Bimap applies a function to both the left and right sides of a bi structure
    */
@@ -16,7 +16,7 @@ trait Bifunctor[F[+_, +_]] {
    * Apply a function f: A => C over the left side only leaving the right side unchanged
    *
    */
-  def <:-[A,B,C](domain: F[A,B], f: A => C) = bimap(domain, f, identity[B])
+  def <:-[A, B, C](domain: F[A, B], f: A => C) = bimap(domain, f, identity[B])
 }
 
 object Bifunctor {
@@ -29,13 +29,13 @@ object Bifunctor {
   implicit def EitherBifunctor: Bifunctor[Either] = new Bifunctor[Either] {
     def bimap[A, B, C, D](domain: Either[A, B], f: A => C, g: B => D) =
       domain match {
-        case Left(a)  => Left(f(a))
+        case Left(a) => Left(f(a))
         case Right(b) => Right(g(b))
       }
   }
 
   implicit def BiBifunctor: Bifunctor[Bi] = new Bifunctor[Bi] {
-    def bimap[A,B,C,D](domain: Bi[A,B], f: A =>C, g: B => D)=
+    def bimap[A, B, C, D](domain: Bi[A, B], f: A => C, g: B => D) =
       Bi(f(domain.a), g(domain.b))
   }
 }
