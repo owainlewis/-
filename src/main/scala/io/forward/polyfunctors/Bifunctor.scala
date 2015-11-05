@@ -31,8 +31,7 @@ object Bifunctor {
       domain match {
         case Left(a) => Left(f(a))
         case Right(b) => Right(g(b))
-      }
-  }
+      }}
 
   implicit def BiBifunctor: Bifunctor[Bi] = new Bifunctor[Bi] {
     def bimap[A, B, C, D](domain: Bi[A, B], f: A => C, g: B => D) =
