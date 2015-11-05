@@ -1,6 +1,10 @@
 package io.forward.polyfunctors
 
 trait Trifunctor[F[+ _, + _, + _]] {
+  
+  /**
+   * Trimap applies three functions to each element of a tri structure
+   */ 
   def trimap[A, B, C, X, Y, Z](domain: F[A, B, C], f: A => X, g: B => Y, h: C => Z): F[X, Y, Z]
 }
 
