@@ -2,6 +2,8 @@ package io.forward.polyfunctors
 
 trait Bifunctor[F[+_, +_]] {
   def bimap[A, B, C, D](domain: F[A, B], f: A => C, g: B => D): F[C, D]
+
+  def <:-[A,B,C](domain: F[A,B], f: A => C) = bimap(domain, f, identity[B])
 }
 
 object Bifunctor {
