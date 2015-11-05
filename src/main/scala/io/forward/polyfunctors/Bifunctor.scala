@@ -23,7 +23,7 @@ object Bifunctor {
   implicit def EitherBifunctor: Bifunctor[Either] = new Bifunctor[Either] {
     def bimap[A, B, C, D](domain: Either[A, B], f: A => C, g: B => D) =
       domain match {
-        case Left(a) => Left(f(a))
+        case Left(a)  => Left(f(a))
         case Right(b) => Right(g(b))
       }
   }
