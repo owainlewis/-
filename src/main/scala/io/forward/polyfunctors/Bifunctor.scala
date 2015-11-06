@@ -1,5 +1,6 @@
 package io.forward.polyfunctors
 
+/** A type container for a shape of two items */
 case class Bi[A, B](a: A, b: B)
 
 object Bi {
