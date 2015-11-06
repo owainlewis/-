@@ -1,5 +1,8 @@
 package io.forward.polyfunctors
 
+/** A type container for a shape of two items */
+case class Tri[A, B, C](a: A, b: B, c: C)
+
 trait Trifunctor[F[+ _, + _, + _]] {
   
   /**
