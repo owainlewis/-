@@ -15,9 +15,13 @@ trait Bifunctor[F[+ _, + _]] {
 
   /**
    * Apply a function f: A => C over the left side only leaving the right side unchanged
-   *
    */
   def <:-[A, B, C](domain: F[A, B], f: A => C) = bimap(domain, f, identity[B])
+  
+  /**
+   * Apply a function f: B => C over the right side only leaving the left side unchanged
+   */
+  def -:>[A, B, C](domain: F[A, B], f: B => C) = bimap(domain, identity[A], f)
 }
 
 object Bifunctor {
