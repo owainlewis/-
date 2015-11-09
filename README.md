@@ -1,3 +1,3 @@
-# Polyfunc
+# Shapes
 
 Exotic scala types and shapes
