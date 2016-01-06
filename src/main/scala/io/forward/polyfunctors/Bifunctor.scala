@@ -16,17 +16,18 @@ trait Bifunctor[F[+ _, + _]] {
   /**
    * Apply a function f: A => C over the left side only leaving the right side unchanged
    */
-  def <:-[A, B, C](domain: F[A, B], f: A => C) = bimap(domain, f, identity[B])
+  def <:-[A, B, C](domain: F[A, B], f: A => C) = 
+    bimap(domain, f, identity[B])
   
   /**
    * Apply a function f: B => C over the right side only leaving the left side unchanged
    */
-  def -:>[A, B, C](domain: F[A, B], f: B => C) = bimap(domain, identity[A], f)
+  def -:>[A, B, C](domain: F[A, B], f: B => C) = 
+    bimap(domain, identity[A], f)
 }
 
 object Bifunctor {
   def apply[F[_, _]](implicit F: Bifunctor[F]): Bifunctor[F] = F
-
   implicit def Tuple2Bifunctor: Bifunctor[Tuple2] = new Bifunctor[Tuple2] {
     def bimap[A, B, C, D](domain: (A, B), f: A => C, g: B => D) = (f(domain._1), g(domain._2))
   }
